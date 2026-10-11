@@ -15,6 +15,7 @@ require("servers.tailwindcss")(capabilities)
 require("servers.phpactor")(capabilities)
 require("servers.laravel_lsp")(capabilities)
 require("servers.htmx")(capabilities)
+require("servers.tombi")(capabilities)
 
 -- Linters & Formatters
 require("servers.efm-langserver")(capabilities)
@@ -35,4 +36,5 @@ vim.lsp.enable({
   'phpactor',
   'laravel_lsp',
   'htmx',
+  'tombi',
 })

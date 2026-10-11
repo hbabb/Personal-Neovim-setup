@@ -64,6 +64,10 @@ return {
       -- Django / Flask templates, HTMX
       "djlint",
       "htmx-lsp",
+
+      -- TOML
+      "tombi",
+      "pyproject-fmt",
     },
     auto_update = true, -- update listed tools when a new version is out
     run_on_start = true, -- check every time Neovim starts

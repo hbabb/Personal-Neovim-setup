@@ -34,12 +34,30 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = lsp_fmt_group,
-	callback = function()
+	-- callback = function()
+	callback = function(args)
 		require("mini.trailspace").trim()
     -- LazyVim's <leader>uf / <leader>uF turn format-on-save off and on
     if vim.g.autoformat == false or vim.b.autoformat == false then
       return
     end
+
+		-- TOML formats with tombi (efm has no tombi entry)
+		if vim.bo[args.buf].filetype == "toml" then
+			vim.lsp.buf.format({ bufnr = args.buf, name = "tombi" })
+			-- pyproject.toml also runs through pyproject-fmt, after tombi
+			local file_name = vim.fs.basename(vim.api.nvim_buf_get_name(args.buf))
+			if file_name == "pyproject.toml" and vim.fn.executable("pyproject-fmt") == 1 then
+				local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
+				local result = vim.system({ "pyproject-fmt", "-" }, { stdin = table.concat(lines, "\n") .. "\n" }):wait()
+				-- pyproject-fmt exits with 1 when it changed something, so 0 and 1 both mean success
+				if (result.code == 0 or result.code == 1) and result.stdout ~= "" then
+					vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, vim.split(result.stdout, "\n", { trimempty = true }))
+				end
+			end
+			return
+		end
+
 		local efm = vim.lsp.get_clients({ name = "efm" })
 		if vim.tbl_isempty(efm) then
 			return
