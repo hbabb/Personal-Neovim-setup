@@ -16,25 +16,27 @@ require("servers.phpactor")(capabilities)
 require("servers.laravel_lsp")(capabilities)
 require("servers.htmx")(capabilities)
 require("servers.tombi")(capabilities)
+require("servers.templ")(capabilities)
 
 -- Linters & Formatters
 require("servers.efm-langserver")(capabilities)
 
 vim.lsp.enable({
-  'lua_ls',
-  'pyright',
-  'gopls',
-  'jsonls',
-  'ts_ls',
-  'bashls',
-  'clangd',
-  'dockerls',
-  'emmet_ls',
-  'yamlls',
-  'tailwindcss',
-  'efm',
-  'phpactor',
-  'laravel_lsp',
-  'htmx',
-  'tombi',
+	"lua_ls",
+	"pyright",
+	"gopls",
+	"templ",
+	"jsonls",
+	"ts_ls",
+	"bashls",
+	"clangd",
+	"dockerls",
+	"emmet_ls",
+	"yamlls",
+	"tailwindcss",
+	"efm",
+	"phpactor",
+	"laravel_lsp",
+	"htmx",
+	"tombi",
 })

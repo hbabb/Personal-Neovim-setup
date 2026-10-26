@@ -37,6 +37,7 @@ return {
 			"rust",
 			"svelte",
 			"solidity",
+      "templ",
 			"typescript",
 			"vue",
 			"yaml",

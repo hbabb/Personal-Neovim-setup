@@ -88,3 +88,23 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.signcolumn = "no"
 	end,
 })
+
+-- Python: typing """ creates a full """ """ docstring pair, cursor in the middle
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python",
+	callback = function(args)
+		vim.keymap.set("i", '"', function()
+			local col = vim.fn.col(".")
+			local line = vim.fn.getline(".")
+			local before = line:sub(col - 2, col - 1) -- the 2 characters left of the cursor
+			local after = line:sub(col, col) -- the character right of the cursor
+			local pairs_off = vim.g.minipairs_disable or vim.b.minipairs_disable
+			if not pairs_off and before == '""' and after ~= '"' then
+				-- add the 3rd opening quote plus 3 closing quotes, then move back between them
+				return '""""' .. vim.api.nvim_replace_termcodes(string.rep("<Left>", 3), true, false, true)
+			end
+			-- anything else: let mini.pairs handle " exactly like it normally does
+			return MiniPairs.closeopen('""', "^[^\\]")
+		end, { buffer = args.buf, expr = true, replace_keycodes = false, desc = "Pair triple quotes" })
+	end,
+})
