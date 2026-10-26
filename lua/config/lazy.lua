@@ -33,10 +33,10 @@ require("config.autocmds")
 
 -- Load keymaps after plugins start
 vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",
-  callback = function()
-    require("config.keymaps")
-  end,
+	pattern = "VeryLazy",
+	callback = function()
+		require("config.keymaps")
+	end,
 })
 
 local plugins_dir = "plugins"
@@ -44,12 +44,12 @@ local plugins_dir = "plugins"
 require("lazy").setup({
 	spec = {
 		-- { import = plugins_dir },
-    -- lazy.nvim only reads top level directory
-    { import = plugins_dir .. ".ui" },
-    { import = plugins_dir .. ".editor" },
-    { import = plugins_dir .. ".coding" },
-    { import = plugins_dir .. ".lsp" },
-    { import = plugins_dir .. ".debug" },
+		-- lazy.nvim only reads top level directory
+		{ import = plugins_dir .. ".ui" },
+		{ import = plugins_dir .. ".editor" },
+		{ import = plugins_dir .. ".coding" },
+		{ import = plugins_dir .. ".lsp" },
+		{ import = plugins_dir .. ".debug" },
 	},
 	rtp = {
 		disabled_plugins = {
@@ -59,8 +59,8 @@ require("lazy").setup({
 	},
 	install = {
 		colorscheme = {
-			-- "melange"
-			"nightfox,",
+			"melange",
+			"nightfox",
 		},
 	},
 	checker = { enabled = true },
