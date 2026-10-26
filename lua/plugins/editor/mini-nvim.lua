@@ -51,5 +51,4 @@ return {
 	{ "echasnovski/mini.bufremove", version = "*", opts = {} },
 	-- CONFLICT: LazyVim uses noice + snacks notifier for notifications
 	-- { "echasnovski/mini.notify", version = "*", opts = {} },
-	{ "echasnovski/mini.trailspace", version = "*", opts = {} },
 }
